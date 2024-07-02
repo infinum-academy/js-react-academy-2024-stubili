@@ -45,6 +45,20 @@ body {
     padding: 1%;
 }
 
+.stars {
+    width: 25%;
+    cursor: pointer;
+}
+
+.stars-constant {
+    width: 25%;
+}
+
+.starContainer{
+    width: 15%;
+    display: flex;
+}
+
 .is-wrong {
     border: 3px solid red;
 }
