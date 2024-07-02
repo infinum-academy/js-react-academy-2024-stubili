@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Movies App</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div id="front-page">
+            <h2>Movies APP</h2>
+
+            <div id="movie-info">
+                <img src="shrek2.jpg">
+                <h3 style="padding-left: 5%; padding-right: 10%;">Shrek 2</h3>
+                <p style="padding: 0% 5% 1% 5%">
+                    Shrek and Fiona travel to the Kingdom of Far Far Away,
+                    where Fiona's parents are King and Queen, to celebrate their marriage. 
+                    When they arrive, they find they are not as welcome as they thought they would be.
+                </p>
+            </div>
+
+            <h3>Reviews</h3>
+
+            <div id="reviews">
+                <textarea placeholder="Add review" rows="5" style="font-size: 15px;"></textarea>
+                <input type="number" placeholder="Add rating" min="1" max="5" style="width: 25%;"/>
+                <button style="width: 10%;" onclick="addReview()">Post</button>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

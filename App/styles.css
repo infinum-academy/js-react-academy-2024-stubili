@@ -1,0 +1,50 @@
+body {
+    background-color: #330069;
+}
+
+#front-page {
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana;
+    color: white;
+    width: 70%;
+}
+
+#movie-info {
+    background-color: white;
+    color: #330069;
+    border-radius: 3%;
+    overflow: hidden;
+}
+
+#movie-info img {
+    width: 100% ;
+}
+
+#reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+#reviews > * {
+    resize: none;
+    border-radius: 10px;
+    padding: 1%;
+    margin-bottom: 2%;
+}
+
+.review-element {
+    display: flex;
+    font-size: 15px;
+    flex-direction: column;
+    background-color: #4b009b;
+}
+
+.review-element > * {
+    padding: 1%;
+}
+
+.is-wrong {
+    border: 3px solid red;
+}
