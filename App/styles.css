@@ -1,0 +1,73 @@
+body {
+    background-color: #330069;
+}
+
+#front-page {
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana;
+    color: white;
+    width: 920px;
+    max-width: 100%;
+}
+
+#movie-info {
+    background-color: white;
+    color: #330069;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#movie-info img {
+    width: 100% ;
+}
+
+#reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+#reviews > * {
+    resize: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.review-element {
+    display: flex;
+    font-size: 15px;
+    flex-direction: column;
+    background-color: #4b009b;
+}
+
+.review-element > * {
+    padding: 10px;
+}
+
+.stars {
+    width: 35px;
+    cursor: pointer;
+}
+
+.stars-constant {
+    width: 35px;
+}
+
+.starContainer{
+    display: flex;
+}
+
+.is-wrong {
+    border: 3px solid red;
+}
+
+button {
+    width: 75px;
+    border-radius: 10px;
+}
+
+button:hover {
+    cursor:pointer;
+}
