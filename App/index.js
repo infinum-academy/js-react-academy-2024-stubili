@@ -12,34 +12,47 @@ function saveToLocalStorage(){
 function loadFromLocalStorage(){
     const reviewListString = localStorage.getItem('reviewList');
     const reviewList = JSON.parse(reviewListString);
-    return reviewList;
+    return reviewList ?? [];
 }
+
+
 
 function renderReviews() {
     //set the appropiate star behavior
     const stars = document.getElementsByClassName("stars");
     setStars(selectedStar,stars);
-    for (let i = 0; i < stars.length; i++){
-        stars[i].onmouseover = () => {
-            stars[i].src = "star_full.png";
-            for (let j = 0; j < i; j++){
-                stars[j].src = "star_full.png";
+
+    document.addEventListener("mouseover", (event) => {
+        if (event.target.className == "stars"){
+            const starIndex = event.target.dataset.id - 1;
+
+            stars[starIndex].src = "star_full.png";
+            for (let j = 0; j < starIndex; j++){
+                stars[j].src = "star_full.png"
             }
         }
-        stars[i].onmouseleave = () => {
-            if (i > selectedStar){
-                stars[i].src = "star_empty.png";
-                for (let j = 0; j < i; j++){
+    });
+
+    document.addEventListener("mouseout", (event) => {
+        if (event.target.className == "stars"){
+            const starIndex = event.target.dataset.id - 1;
+
+            if (starIndex > selectedStar){
+                stars[starIndex].src = "star_empty.png";
+                for (let j = 0; j < starIndex; j++){
                     if (j > selectedStar){
-                        stars[j].src = "star_empty.png";
+                        stars[j].src = "star_empty.png"
                     }
                 }
             }
         }
-        stars[i].onclick = () => {
-            setStars(i,stars);
+    });
+
+    document.addEventListener("click", (event) => {
+        if (event.target.className == "stars"){
+            setStars(event.target.dataset.id - 1,stars);
         }
-    }
+    });
 
     reviewArray = loadFromLocalStorage();
     //initial render when booting up the app, displays all the reviews from the array
@@ -50,25 +63,25 @@ function renderReviews() {
 
 function addReview() {
     //get the textarea and the input elements
-    const reviewInputText = document.getElementsByTagName("textarea");
+    const reviewInputText = document.getElementById("review-input");
     const stars = document.getElementsByClassName("stars");
 
     //if the input was wrong, to reset the border when the input is correct
-    reviewInputText[0].oninput = () => {
-        reviewInputText[0].className = "";
+    reviewInputText.oninput = () => {
+        reviewInputText.className = "";
     }
 
     //give a red border as warning that the input is wrong
-    if (reviewInputText[0].value == ""){
-        reviewInputText[0].className = "is-wrong";
+    if (reviewInputText.value == ""){
+        reviewInputText.className = "is-wrong";
         return;
     } else {
-        reviewInputText[0].className = "";
+        reviewInputText.className = "";
     }
 
     //create the object
     const review = {
-        reviewText: reviewInputText[0].value,
+        reviewText: reviewInputText.value,
         score: selectedStar + 1 
     }
 
@@ -82,7 +95,7 @@ function addReview() {
     createReview(review);
 
     //reset the inputs to be blank
-    reviewInputText[0].value = "";
+    reviewInputText.value = "";
     setStars(0,stars);
 }
 
@@ -100,7 +113,7 @@ function createReview(review) {
     reviewElement.className = "review-element";
 
     //writing the text of the review
-    reviewText.innerHTML = review.reviewText;
+    reviewText.innerText = review.reviewText;
     reviewElement.appendChild(reviewText);
 
     //writing the score of the review
@@ -118,7 +131,7 @@ function createReview(review) {
     reviewElement.appendChild(reviewScore);
 
     //creating the delete button
-    deleteButton.innerHTML = "Remove";
+    deleteButton.innerText = "Remove";
     deleteButton.onclick = () => {
         deleteReview(review,reviewElement)
     };

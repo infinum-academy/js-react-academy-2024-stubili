@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Movies App</title>
+        <link rel="icon" type="image/x-icon" href="filmstrip_icon.png">
         <link rel="stylesheet" href="styles.css">
     </head>
 
@@ -10,25 +11,25 @@
 
             <div id="movie-info">
                 <img src="shrek2.jpg">
-                <h3 style="padding-left: 5%; padding-right: 10%;">Shrek 2</h3>
-                <p style="padding: 0% 5% 1% 5%">
+                <h3 style="padding-left: 45px; padding-right: 45px;">Shrek 2</h3>
+                <p style="padding: 0px 45px 10px 45px">
                     Shrek and Fiona travel to the Kingdom of Far Far Away,
                     where Fiona's parents are King and Queen, to celebrate their marriage. 
                     When they arrive, they find they are not as welcome as they thought they would be.
                 </p>
-                <p id="score" style="padding: 0% 0% 1% 5%">0.0 / 5</p>
+                <p id="score" style="padding: 0px 0px 10px 45px">0.0 / 5</p>
             </div>
 
             <h3>Reviews</h3>
 
             <div id="reviews">
-                <textarea placeholder="Add review" rows="5" style="font-size: 15px;"></textarea>
+                <textarea id="review-input" placeholder="Add review" rows="5" style="font-size: 15px;"></textarea>
                 <div class="starContainer">
-                    <img src="star_empty.png" class="stars">
-                    <img src="star_empty.png" class="stars">
-                    <img src="star_empty.png" class="stars">
-                    <img src="star_empty.png" class="stars">
-                    <img src="star_empty.png" class="stars">
+                    <img src="star_empty.png" class="stars" data-id = "1">
+                    <img src="star_empty.png" class="stars" data-id = "2">
+                    <img src="star_empty.png" class="stars" data-id = "3">
+                    <img src="star_empty.png" class="stars" data-id = "4">
+                    <img src="star_empty.png" class="stars" data-id = "5">
                 </div>
                 <button onclick="addReview()">Post</button>
             </div>
