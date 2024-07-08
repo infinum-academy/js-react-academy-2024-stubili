@@ -1,0 +1,17 @@
+.showdetails {
+    border-radius: 20px;
+    background-color: white;
+    color: #330069;
+    overflow: hidden;
+    width: 920px;
+    max-width: 100%;
+
+}
+
+.div {
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: justify;
+}
