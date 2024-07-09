@@ -22,7 +22,7 @@ export default function Home() {
   mockShow.show.averageRating = avgRating;
   return (
     <main className={styles.main}>
-      <Container style={{width: "920px"}}>
+      <Container style={{width: "920px", maxWidth:"100%"}}>
         <Heading color={"white"}>MovieList</Heading>
         <ShowDetails show={mockShow.show} />
         <ShowReviewSection updateRating={setAvgRating}/>

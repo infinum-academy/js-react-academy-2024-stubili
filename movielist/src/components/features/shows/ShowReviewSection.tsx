@@ -7,20 +7,7 @@ import { useEffect, useState } from "react";
 import { IReviewItem } from "../reviews/ReviewItem";
 
 const mockReviews: IReviewList = {
-        reviews: [
-            {
-                reviewText: "Enjoyed it",
-                score: 4
-            },
-            {
-                reviewText: "Quite bad",
-                score: 2
-            },
-            {
-                reviewText: "It was okay",
-                score: 3
-            }
-        ]
+        reviews: []
 }
 
 interface IUpdateRating {
@@ -36,7 +23,7 @@ export default function ShowReviewSection({updateRating}: IUpdateRating) {
       }, []); 
     
       const saveToLocalStorage = (reviewList: IReviewList) => {
-        localStorage.setItem('reviewlist', JSON.stringify(reviews));
+        localStorage.setItem('reviewlist', JSON.stringify(reviewList));
       };
     
       const loadFromLocalStorage = () => {
@@ -64,9 +51,7 @@ export default function ShowReviewSection({updateRating}: IUpdateRating) {
           };
           setReviewList(newList);
           calculateAvgRating(-reviewToRemove.score);
-          saveToLocalStorage({
-            reviews: reviews.reviews.filter((review) => review !== reviewToRemove),
-          });
+          saveToLocalStorage(newList);
     }
 
     const calculateAvgRating = (score: number) => {

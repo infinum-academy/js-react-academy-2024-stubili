@@ -15,3 +15,22 @@
     padding-bottom: 15px;
     text-align: justify;
 }
+
+.header {
+    padding-left: 45px;
+    padding-top: 12px; 
+}
+
+@media screen and (max-width: 768px){
+    .div {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: justify;
+    }
+
+    .header {
+        padding-left: 15px;
+    }
+}
