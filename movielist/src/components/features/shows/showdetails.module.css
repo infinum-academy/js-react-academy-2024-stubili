@@ -1,0 +1,36 @@
+.showdetails {
+    border-radius: 20px;
+    background-color: white;
+    color: #330069;
+    overflow: hidden;
+    width: 920px;
+    max-width: 100%;
+
+}
+
+.div {
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: justify;
+}
+
+.header {
+    padding-left: 45px;
+    padding-top: 12px; 
+}
+
+@media screen and (max-width: 768px){
+    .div {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: justify;
+    }
+
+    .header {
+        padding-left: 15px;
+    }
+}
