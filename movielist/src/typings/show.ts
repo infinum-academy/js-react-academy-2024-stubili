@@ -3,8 +3,10 @@ export interface IShowProp {
 }
 
 export interface IShow {
+    id: number,
     title: string,
     description: string,
-    averageRating: number,
-    imageUrl: string
+    average_rating: number,
+    no_of_reviews: number,
+    image_url: string
 }

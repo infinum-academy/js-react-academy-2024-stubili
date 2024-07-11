@@ -19,7 +19,7 @@ export default function ReviewItem({review,onDelete}: IReview) {
         <Flex flexDirection={"column"} backgroundColor={"#4b009b"} color={"white"} marginTop={3} padding={2} borderRadius={10} gap={2}>
             <div>{review.reviewText}</div>
             <div>{review.score} / 5</div>
-            <Button width={20} size={"sm"} onClick={onClickHandler}>Remove</Button>
+            <Button width={20} size={"sm"} onClick={onClickHandler} alignSelf={"flex-end"}>Remove</Button>
         </Flex>
     )
 }
