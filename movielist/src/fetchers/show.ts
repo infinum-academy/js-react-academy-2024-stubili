@@ -4,7 +4,7 @@ import { IShow } from "@/typings/show";
 
 
 export function getShowsList() {
-    return fetcher<IShowsListProps>('/api/shows/top-rated');
+    return fetcher<IShowsListProps>('/api/shows');
 }
 
 export function getFilterShowsList() {

@@ -38,7 +38,7 @@ const mockList = {
 }
 
 export default function TopRatedShows() {
-  const { data, error, isLoading } = useSWR('/shows', getShowsList);
+  const { data, error, isLoading } = useSWR('/top-rated', getFilterShowsList);
 
 	const shows = data?.shows || [];
 

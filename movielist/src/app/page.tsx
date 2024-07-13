@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ShowCard } from "@/components/shared/ShowCard";
 import { ShowsList } from "@/components/shared/ShowsList";
 import { SideBarNavigation } from "@/components/shared/SideBarNavigation";
-import { getShowsList } from "@/fetchers/show";
+import { getFilterShowsList, getShow, getShowsList } from "@/fetchers/show";
 import useSWR from "swr";
 
 export default function Home() {

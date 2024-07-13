@@ -3,20 +3,16 @@ import { Container, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import ShowDetails from "../features/shows/ShowDetails";
 import ShowReviewSection from "../features/shows/ShowReviewSection";
+import { IShow } from "@/typings/show";
 
 interface IShowProp {
-    show: {
-        title: string,
-        description: string,
-        averageRating: number,
-        imageUrl: string
-    }
+    show: IShow
 }
 
 
 export function ShowCard({show} : IShowProp) {
-    const [avgRating, setAvgRating] = useState(show.averageRating);
-    show.averageRating = avgRating;
+    const [avgRating, setAvgRating] = useState(show.average_rating);
+    show.average_rating = avgRating;
     return (
         <Container style={{width: "920px", maxWidth:"100%"}}>
           <ShowDetails show={show} />
