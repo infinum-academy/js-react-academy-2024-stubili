@@ -12,6 +12,7 @@ import { ShowsList } from "@/components/shared/ShowsList";
 import { SideBarNavigation } from "@/components/shared/SideBarNavigation";
 import { getFilterShowsList, getShow, getShowsList } from "@/fetchers/show";
 import useSWR from "swr";
+import { AuthRedirect } from "@/components/shared/AuthRedirect/AuthRedirect";
 
 export default function Home() {
   const { data, error, isLoading } = useSWR('/shows', getShowsList);
@@ -26,11 +27,14 @@ export default function Home() {
 		return <div>Ups...something went wrong</div>;
 	}
   return (
+    <>
+    <AuthRedirect to="/login" condition="loggedOut"/>
     <main className={styles.main}>
       <Flex>
         <SideBarNavigation></SideBarNavigation>
         <ShowsList shows={shows}/>
       </Flex>
     </main>
+    </>
   );
 }

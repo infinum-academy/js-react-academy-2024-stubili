@@ -4,13 +4,13 @@ import { IShow } from "@/typings/show";
 
 
 export function getShowsList() {
-    return fetcher<IShowsListProps>('/api/shows');
+    return fetcher<IShowsListProps>('api/shows');
 }
 
 export function getFilterShowsList() {
-    return fetcher<IShowsListProps>('/api/shows/top-rated');
+    return fetcher<IShowsListProps>('api/shows/top_rated');
 }
 
 export function getShow(id: string) {
-    return fetcher<IShow>(`/api/shows/${id}`);
+    return fetcher<IShow>(`api/shows/${id}`);
 }
