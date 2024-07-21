@@ -2,6 +2,7 @@
 
 import { mutator } from "@/fetchers/mutators";
 import { Button, chakra, Flex, FormControl, Heading, Input, Link, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 
@@ -12,6 +13,7 @@ export interface IRegisterFormInputs {
 }
 
 export function RegisterForm() {
+    const router = useRouter();
     const {register, handleSubmit} = useForm<IRegisterFormInputs>();
     const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users", mutator)
     const onRegister = async (data: IRegisterFormInputs) => {
@@ -23,8 +25,9 @@ export function RegisterForm() {
             window.alert("Passwords dont match");
             return;
         }
-        console.log(data);
-        await trigger(data);
+        await trigger(data).then(() => {
+            router.push("/login");
+        });
     }
     return (
         <chakra.form 

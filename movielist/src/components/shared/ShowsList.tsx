@@ -12,9 +12,9 @@ export interface IShowsListProps {
 export function ShowsList({shows} : IShowsListProps) {
     return (
         <Flex width={"720px"} flexWrap={"wrap"} gap={"30px"}>
-            {shows.map((show,index) => {
+            {shows.map((show) => {
                 return (
-                    <NextLink key={index} href={`/all-shows/${show.id}`}>
+                    <NextLink key={show.id} href={`/all-shows/${show.id}`}>
                         <div style={{borderRadius: "10px", backgroundColor: "white", overflow: "hidden", width: "200px"}}>
                             <Flex flexDirection={"column"}>
                                 <Image src={show.image_url} alt="Show poster" fallbackSrc='https://via.placeholder.com/150' height={"300px"} objectFit={"cover"}></Image>

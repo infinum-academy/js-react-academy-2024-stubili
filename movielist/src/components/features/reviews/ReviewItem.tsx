@@ -9,6 +9,7 @@ interface IReview {
 export interface IReviewItem {
     reviewText: string,
     score: number,
+    user: string
 }
 
 export default function ReviewItem({review,onDelete}: IReview) {
@@ -17,6 +18,7 @@ export default function ReviewItem({review,onDelete}: IReview) {
     }
     return (
         <Flex flexDirection={"column"} backgroundColor={"#4b009b"} color={"white"} marginTop={3} padding={2} borderRadius={10} gap={2}>
+            <div>{review.user}</div>
             <div>{review.reviewText}</div>
             <div>{review.score} / 5</div>
             <Button width={20} size={"sm"} onClick={onClickHandler} alignSelf={"flex-end"}>Remove</Button>

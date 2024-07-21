@@ -4,13 +4,13 @@ import { IShow } from "@/typings/show";
 
 
 export function getShowsList() {
-    return fetcher<IShowsListProps>('api/shows');
+    return fetcher<IShowsListProps>('https://tv-shows.infinum.academy/shows');
 }
 
 export function getFilterShowsList() {
-    return fetcher<IShowsListProps>('api/shows/top_rated');
+    return fetcher<IShowsListProps>('https://tv-shows.infinum.academy/shows/top_rated');
 }
 
 export function getShow(id: string) {
-    return fetcher<IShow>(`api/shows/${id}`);
+    return fetcher<IShow>(`https://tv-shows.infinum.academy/shows/${id}`);
 }

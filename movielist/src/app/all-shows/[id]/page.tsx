@@ -21,7 +21,7 @@ const mockShow = {
 
 export default function ShowInfoPage() {
     const params = useParams();
-    const { data, error, isLoading } = useSWR(`/shows/${params.id}`,() => getShow(params.id as string));
+    const { data, error, isLoading } = useSWR(`https://tv-shows.infinum.academy/shows/top_rated/${params.id}`,() => getShow(params.id as string));
     
     if (error) {
         return <div>Ups...something went wrong</div>;
@@ -35,7 +35,7 @@ export default function ShowInfoPage() {
         <main className={styles.main}>
             <Flex>
                 <SideBarNavigation></SideBarNavigation>
-                <ShowCard show={data}></ShowCard>
+                <ShowCard show={data.show}></ShowCard>
             </Flex>
         </main>
     )

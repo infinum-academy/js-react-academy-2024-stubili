@@ -1,7 +1,13 @@
-import { Container, Flex } from "@chakra-ui/react";
+'use client';
+
+import { Button, Container, Flex } from "@chakra-ui/react";
 import NextLink from 'next/link';
 
+
 export function SideBarNavigation() {
+    const logOut = () => {
+        sessionStorage.removeItem('auth-headers');
+    }
     return (
         <Container height={"100vh"} width={"30vw"} color={"white"} paddingLeft={"0"}>
             <div>Tv show app</div>
@@ -13,7 +19,7 @@ export function SideBarNavigation() {
                     <div>Top rated</div>
                 </NextLink>
                 <div style={{height: "70vh"}}>My profile</div>
-                <div>Log out</div>
+                <div onClick={logOut}>Log out</div>
             </Flex>
         </Container>
     )

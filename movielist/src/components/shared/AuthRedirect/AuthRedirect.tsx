@@ -14,7 +14,6 @@ export const AuthRedirect = ({ to, condition }: IAuthRedirectProps) => {
   const { data, isLoading } = useSWR("https://tv-shows.infinum.academy/users/me", fetcher<{ uid: string }>);
 
   useEffect(() => {
-    console.log('Effect');
     if (isLoading) {
       return;
     }
