@@ -2,32 +2,39 @@ import { Textarea, Button, Input, Flex, RadioGroup, Radio, chakra, FormControl }
 import { useState } from "react";
 import { IReviewItem } from "../reviews/ReviewItem";
 import { useForm } from "react-hook-form";
+import useSWRMutation from "swr/mutation";
+import { mutator, postReview } from "@/fetchers/mutators";
+import { useParams } from "next/navigation";
 
 interface IReviewAddForm {
     onAdd: (review: IReviewItem) => void;
 }
 
-interface IReviewInputs {
+export interface IReviewInputs {
     comment: string,
-    score: string
+    rating: number,
+    show_id: number
 }
 
 export default function ReviewForm({onAdd}: IReviewAddForm) {
+    const params = useParams();
     const {register, handleSubmit} = useForm<IReviewInputs>();
     const [score, setScore] = useState('1');
     const [comment, setComment] = useState('');
-    const onClickHandler = () => {
+    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/reviews",postReview);
+    const onClickHandler = async (data: IReviewInputs) => {
+        await trigger(data);
         const newReview: IReviewItem = {
             reviewText: comment,
             score: parseInt(score),
             user: JSON.parse(sessionStorage.getItem('auth-headers')).uid
         }
-        onAdd(newReview);
+        //onAdd(newReview);
         setScore('1');
         setComment('');
     }
     return (
-        <chakra.form flexDirection={"column"} onSubmit={onClickHandler}>
+        <chakra.form flexDirection={"column"} onSubmit={handleSubmit(onClickHandler)}>
             <FormControl isRequired={true}>
                 <Textarea 
                 {...register('comment')}
@@ -41,7 +48,7 @@ export default function ReviewForm({onAdd}: IReviewAddForm) {
                 marginTop={10}></Textarea>
             </FormControl>
             <FormControl>
-                <RadioGroup {...register('score')} onChange={setScore} value={score} defaultValue="1" marginBottom={5} color={"white"}>
+                <RadioGroup {...register('rating')} onChange={setScore} value={score} defaultValue="1" marginBottom={5} color={"white"}>
                     <Radio value="1" marginLeft={5}>1</Radio>
                     <Radio value="2" marginLeft={5}>2</Radio>
                     <Radio value="3" marginLeft={5}>3</Radio>
@@ -49,6 +56,7 @@ export default function ReviewForm({onAdd}: IReviewAddForm) {
                     <Radio value="5" marginLeft={5}>5</Radio>                                    
                 </RadioGroup>
             </FormControl>
+            <Input {...register('show_id')} defaultValue={params.id} display={"none"} />
             <Button width={"75px"} type="submit">Post</Button>
         </chakra.form>
     )

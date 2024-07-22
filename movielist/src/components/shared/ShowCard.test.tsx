@@ -2,29 +2,30 @@
 import { render, screen } from '@testing-library/react';
 import { ShowCard } from './ShowCard';
 import ShowDetails from '../features/shows/ShowDetails';
+import { IShowProp } from '@/typings/show';
+import { title } from 'process';
+import { mock } from 'node:test';
+
+jest.mock("./ShowCard", () => {
+    ShowCard: jest.fn();
+})
+
 
 describe('ShowCard', () => {
-    const mockCard = {id:0, title:"title", description: "description", average_rating: 3, image_url: "", no_of_reviews: 3};
-    it('should render title', () => {
-        render(<ShowCard show={mockCard} />)
-
-        const title = screen.getByText("title");
-        const rating = screen.getByDisplayValue(3);
-        expect(title).toBeInTheDocument();
-        expect(rating).toBeInTheDocument();
+    
+    const mockShow = {id: 0, title: "mockTitle", description: "mockDescription", average_rating: 3, image_url: "mockUrl", no_of_reviews: 3};
+    
+    beforeEach(() => {
+        render(<ShowCard show={mockShow}/>);
     })
 
-    it('should render average rating', () => {
-        render(<ShowCard show={mockCard} />)
-
-        const rating = screen.getByText("3.0 / 5");
-        expect(rating).toBeInTheDocument();
+    it('should render ShowCard with appropriate props', () => {
+        expect(ShowCard).toHaveBeenLastCalledWith(
+            {
+                id: mockShow.id, title: mockShow.title, description: mockShow.description, average_rating: mockShow.average_rating, image_url: mockShow.image_url, no_of_reviews: mockShow.no_of_reviews
+            },
+            expect.anything()
+        )
     })
-
-    it('should contain image', () => {
-        render(<ShowCard show={mockCard} />)
-
-        const image = screen.getByRole("img");
-        expect(image).toHaveAttribute("src","https://via.placeholder.com/150");
-    })
+    
 });

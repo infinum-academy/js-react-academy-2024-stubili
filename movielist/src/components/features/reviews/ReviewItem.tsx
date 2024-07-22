@@ -1,9 +1,14 @@
-import { Button, Flex } from "@chakra-ui/react"
+import { IReviewInputsGet } from "@/fetchers/show"
+import { Button, chakra, Flex } from "@chakra-ui/react"
 import { Span } from "next/dist/trace"
+import { useForm } from "react-hook-form"
+import { IReviewInputs } from "../shows/ReviewForm"
+import { deleteReview } from "@/fetchers/mutators"
+import useSWRMutation from "swr/mutation"
 
 interface IReview {
-    review: IReviewItem,
-    onDelete: (reviewToRemove: IReviewItem) => void
+    review: IReviewInputsGet,
+    onDelete: (reviewToRemove: IReviewInputsGet) => void
 }
 
 export interface IReviewItem {
@@ -13,15 +18,20 @@ export interface IReviewItem {
 }
 
 export default function ReviewItem({review,onDelete}: IReview) {
-    const onClickHandler = () => {
-        onDelete(review);
+    const {register, handleSubmit} = useForm<{id: string}>();
+    const {trigger} = useSWRMutation(`https://tv-shows.infinum.academy/reviews/${review.id}`,deleteReview);
+    const onClickHandler = async (data: {id: string}) => {
+        await trigger(data)
+        //onDelete(review);
     }
     return (
         <Flex flexDirection={"column"} backgroundColor={"#4b009b"} color={"white"} marginTop={3} padding={2} borderRadius={10} gap={2}>
-            <div>{review.user}</div>
-            <div>{review.reviewText}</div>
-            <div>{review.score} / 5</div>
-            <Button width={20} size={"sm"} onClick={onClickHandler} alignSelf={"flex-end"}>Remove</Button>
+            <div>{review.user.email}</div>
+            <div>{review.comment}</div>
+            <div>{review.rating} / 5</div>
+            <chakra.form onSubmit={handleSubmit(onClickHandler)}>
+                <Button {...register('id')} width={20} size={"sm"}alignSelf={"flex-end"} type="submit" value={review.id}>Remove</Button>
+            </chakra.form>
         </Flex>
     )
 }
