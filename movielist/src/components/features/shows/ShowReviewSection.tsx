@@ -41,7 +41,7 @@ export default function ShowReviewSection({updateRating}: IUpdateRating) {
         const newList = {
             reviews: reviews.filter((review) => review !== reviewToRemove),
           };
-          //setReviewList(newList);
+          //setReviewList(newList.reviews);
           calculateAvgRating(-reviewToRemove.rating);
     }
 

@@ -10,22 +10,22 @@ interface IAuthRedirectProps {
 }
 
 export const AuthRedirect = ({ to, condition }: IAuthRedirectProps) => {
+  const authHeaders = sessionStorage.getItem('auth-headers');
   const router = useRouter();
   const { data, isLoading } = useSWR("https://tv-shows.infinum.academy/users/me", fetcher<{ uid: string }>);
-
   useEffect(() => {
     if (isLoading) {
       return;
     }
-    if (!data && condition === 'loggedOut') {
+    if (!data && condition === 'loggedOut' && !authHeaders) {
       router.push(to);
     }
 
-    if (data && condition === 'loggedIn') {
+    if (data && condition === 'loggedIn' && authHeaders) {
       console.log('Logged in, redirecting');
       router.push(to);
     }
-  }, [data, isLoading, router, condition, to]);
+  }, [data, isLoading, router, condition, to, authHeaders]);
 
   return null;
 };

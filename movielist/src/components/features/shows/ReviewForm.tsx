@@ -15,7 +15,6 @@ export interface IReviewInputs {
     rating: number,
     show_id: number
 }
-
 export default function ReviewForm({onAdd}: IReviewAddForm) {
     const params = useParams();
     const {register, handleSubmit} = useForm<IReviewInputs>();
@@ -23,15 +22,18 @@ export default function ReviewForm({onAdd}: IReviewAddForm) {
     const [comment, setComment] = useState('');
     const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/reviews",postReview);
     const onClickHandler = async (data: IReviewInputs) => {
-        await trigger(data);
+        data.rating = parseInt(score);
+        await trigger(data).then(() => {
+            window.location.reload();
+        });
         const newReview: IReviewItem = {
             reviewText: comment,
             score: parseInt(score),
             user: JSON.parse(sessionStorage.getItem('auth-headers')).uid
         }
-        //onAdd(newReview);
-        setScore('1');
         setComment('');
+        setScore('1');
+        //onAdd(newReview);
     }
     return (
         <chakra.form flexDirection={"column"} onSubmit={handleSubmit(onClickHandler)}>
@@ -48,7 +50,7 @@ export default function ReviewForm({onAdd}: IReviewAddForm) {
                 marginTop={10}></Textarea>
             </FormControl>
             <FormControl>
-                <RadioGroup {...register('rating')} onChange={setScore} value={score} defaultValue="1" marginBottom={5} color={"white"}>
+                <RadioGroup {...register('rating')} onChange={setScore} value={score} defaultValue={"4"} marginBottom={5} color={"white"}>
                     <Radio value="1" marginLeft={5}>1</Radio>
                     <Radio value="2" marginLeft={5}>2</Radio>
                     <Radio value="3" marginLeft={5}>3</Radio>

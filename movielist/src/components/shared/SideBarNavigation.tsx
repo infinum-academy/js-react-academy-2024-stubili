@@ -19,7 +19,9 @@ export function SideBarNavigation() {
                     <div>Top rated</div>
                 </NextLink>
                 <div style={{height: "70vh"}}>My profile</div>
-                <div onClick={logOut}>Log out</div>
+                <NextLink href={'/login'}>
+                    <div onClick={logOut}>Log out</div>
+                </NextLink>
             </Flex>
         </Container>
     )
