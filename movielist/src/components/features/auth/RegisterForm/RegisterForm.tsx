@@ -15,7 +15,11 @@ export interface IRegisterFormInputs {
 export function RegisterForm() {
     const router = useRouter();
     const {register, handleSubmit} = useForm<IRegisterFormInputs>();
-    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users", mutator)
+    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users", mutator, {
+        onSuccess(data, key, config) {
+            router.push('/login');
+        },
+    })
     const onRegister = async (data: IRegisterFormInputs) => {
         if (data.password.length < 8){
             window.alert("Password is not long enough");
@@ -25,9 +29,7 @@ export function RegisterForm() {
             window.alert("Passwords dont match");
             return;
         }
-        await trigger(data).then(() => {
-            router.push("/login");
-        });
+        await trigger(data);
     }
     return (
         <chakra.form 

@@ -15,7 +15,6 @@ import useSWR from "swr";
 import { AuthRedirect } from "@/components/shared/AuthRedirect/AuthRedirect";
 
 export default function Home() {
-  const [condition, changeCondition] = useState('loggedOut');
   const { data, error, isLoading } = useSWR('/shows', getShowsList);
 
 	const shows = data?.shows || [];
@@ -29,10 +28,10 @@ export default function Home() {
 	} */
   return (
     <>
-    <AuthRedirect to="/login" condition={condition}/>
+    <AuthRedirect to="/login" condition={'loggedOut'}/>
     <main className={styles.main}>
       <Flex>
-        <SideBarNavigation></SideBarNavigation>
+        <SideBarNavigation />
         <ShowsList shows={shows}/>
       </Flex>
     </main>

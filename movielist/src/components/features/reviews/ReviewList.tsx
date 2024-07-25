@@ -4,7 +4,7 @@ import { IReviewInputsGet } from "@/fetchers/show";
 
 export interface IReviewListProps {
     reviewList: Array<IReviewInputsGet>,
-    onDelete: (reviewToRemove: IReviewInputsGet) => void
+    onDelete: () => void;
 }
 
 export interface IReviewList {

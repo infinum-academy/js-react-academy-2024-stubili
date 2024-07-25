@@ -8,7 +8,7 @@ import useSWRMutation from "swr/mutation"
 
 interface IReview {
     review: IReviewInputsGet,
-    onDelete: (reviewToRemove: IReviewInputsGet) => void
+    onDelete: () => void
 }
 
 export interface IReviewItem {
@@ -25,13 +25,13 @@ export default function ReviewItem({review, onDelete}: IReview) {
         uid: ''
 	}));
     const {register, handleSubmit} = useForm<{id: string}>();
-    const {trigger} = useSWRMutation(`https://tv-shows.infinum.academy/reviews/${review.id}`,deleteReview);
+    const {trigger} = useSWRMutation(`https://tv-shows.infinum.academy/reviews/${review.id}`,deleteReview,{
+        onSuccess(data, key, config) {
+            onDelete();
+        },
+    });
     const onClickHandler = async (data: {id: string}) => {
-        console.log(review);
-        await trigger(data).then(() => {
-            window.location.reload();
-        });
-        //onDelete(review);
+        await trigger(data);
     }
     if (review.user.email == authHeaders.uid){
         return (

@@ -9,10 +9,7 @@ import useSWR from "swr";
 import { useParams } from "next/navigation";
 import { fetcher } from "@/fetchers/fetcher";
 import { getReviewsList, IReviewInputsGet } from "@/fetchers/show";
-
-const mockReviews: IReviewList = {
-        reviews: []
-}
+import useSWRMutation from "swr/mutation";
 
 interface IUpdateRating {
     updateRating: (avgRating: number) => void 
@@ -20,44 +17,34 @@ interface IUpdateRating {
 
 export default function ShowReviewSection({updateRating}: IUpdateRating) {
     const params = useParams();
-    const {data, isLoading} = useSWR(`/reviews/${params.id}`,() => getReviewsList(params.id as string));
-    const reviewsList = data?.reviews || [];
+    const [reviewList, updateReviewList] = useState(Array<IReviewInputsGet>);
+    const updateReviews = async () => {
+        await getReviewsList(params.id as string).then(
+            (data) => {
+                updateReviewList(data.reviews);
+                let sum = 0;
+                data.reviews.forEach((review) => {
+                    sum += review.rating;
+                })
+                sum /= data.reviews.length;
+                updateRating(sum);
+            }
+        )
+    }
+    const {trigger} = useSWRMutation(`/reviews/${params.id}`,updateReviews);
 
-    if (isLoading){
-        return <div>Loading...</div>
+    const updateReviewsTrigger = async () => {
+        await trigger();
     }
 
-    //const [reviews, setReviewList] = useState(reviewsList);
-
-    const onAddReview = (review: IReviewItem) => {
-        const newReviewList = {
-            reviews: [...reviews, review]
-        }
-        //setReviewList(newReviewList);
-        calculateAvgRating(review.score);
-    }
-
-    const onDeleteReview = (reviewToRemove: IReviewInputsGet) => {
-        const newList = {
-            reviews: reviews.filter((review) => review !== reviewToRemove),
-          };
-          //setReviewList(newList.reviews);
-          calculateAvgRating(-reviewToRemove.rating);
-    }
-
-    const calculateAvgRating = (score: number) => {
-        let sum = score;
-        reviews.forEach((review) => {
-            sum += review.rating;
-        })
-        sum /= score > 0 ? reviews.length + 1 : reviews.length - 1;
-        updateRating(sum);
-    }
+    useEffect(() => {
+        updateReviewsTrigger();
+    },[]);
 
     return (
         <Flex flexDirection={"column"}>
-            <ReviewForm onAdd={onAddReview}/>
-            <ReviewList reviewList={reviewsList} onDelete={onDeleteReview}></ReviewList>
+            <ReviewForm onAdd={updateReviewsTrigger}/>
+            <ReviewList reviewList={reviewList} onDelete={updateReviewsTrigger}></ReviewList>
         </Flex>
     )
 }

@@ -6,8 +6,8 @@ import useSWRMutation from "swr/mutation";
 import { mutator, postReview } from "@/fetchers/mutators";
 import { useParams } from "next/navigation";
 
-interface IReviewAddForm {
-    onAdd: (review: IReviewItem) => void;
+interface IUpdateRating {
+    onAdd: () => void
 }
 
 export interface IReviewInputs {
@@ -15,25 +15,21 @@ export interface IReviewInputs {
     rating: number,
     show_id: number
 }
-export default function ReviewForm({onAdd}: IReviewAddForm) {
+export default function ReviewForm({onAdd}: IUpdateRating) {
     const params = useParams();
     const {register, handleSubmit} = useForm<IReviewInputs>();
     const [score, setScore] = useState('1');
     const [comment, setComment] = useState('');
-    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/reviews",postReview);
+    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/reviews",postReview,{
+        onSuccess(data, key, config) {
+            onAdd();
+        }
+    });
     const onClickHandler = async (data: IReviewInputs) => {
         data.rating = parseInt(score);
-        await trigger(data).then(() => {
-            window.location.reload();
-        });
-        const newReview: IReviewItem = {
-            reviewText: comment,
-            score: parseInt(score),
-            user: JSON.parse(sessionStorage.getItem('auth-headers')).uid
-        }
+        await trigger(data);
         setComment('');
         setScore('1');
-        //onAdd(newReview);
     }
     return (
         <chakra.form flexDirection={"column"} onSubmit={handleSubmit(onClickHandler)}>

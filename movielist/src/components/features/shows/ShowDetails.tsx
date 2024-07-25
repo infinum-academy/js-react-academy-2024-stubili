@@ -1,8 +1,8 @@
-import { IShowProp } from "@/typings/show";
+import { IShow, IShowProp } from "@/typings/show";
 import { Flex, Heading, Image } from "@chakra-ui/react";
 import styles from "./showdetails.module.css";
 
-export default function ShowDetails({show}: IShowProp) {
+export default function ShowDetails({show}: IShow) {
     return (
     <Flex className={styles.showdetails} flexDirection={"column"}>
         <Image src={show.image_url} alt="Show poster" fallbackSrc='https://via.placeholder.com/150'></Image>

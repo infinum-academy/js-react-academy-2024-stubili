@@ -8,17 +8,6 @@ import useSWR from "swr";
 import { title } from "process";
 import { useParams } from "next/navigation";
 
-const mockShow = {
-    show: {
-      id: 1,  
-      title: "Shrek 2",
-      description: "Shrek and Fiona travel to the Kingdom of Far Far Away, where Fiona's parents are King and Queen, to celebrate their marriage. When they arrive, they find they are not as welcome as they thought they would be.",
-      average_rating: 2,
-      no_of_reviews: 0,
-      image_url: "https://facts.net/wp-content/uploads/2023/09/49-facts-about-the-movie-shrek-2-1693670471.jpg"
-    }
-  }
-
 export default function ShowInfoPage() {
     const params = useParams();
     const { data, error, isLoading } = useSWR(`https://tv-shows.infinum.academy/shows/top_rated/${params.id}`,() => getShow(params.id as string));
@@ -35,7 +24,7 @@ export default function ShowInfoPage() {
         <main className={styles.main}>
             <Flex>
                 <SideBarNavigation></SideBarNavigation>
-                <ShowCard show={data.show}></ShowCard>
+                <ShowCard show={data}></ShowCard>
             </Flex>
         </main>
     )

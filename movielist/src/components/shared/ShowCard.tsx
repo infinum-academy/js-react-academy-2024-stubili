@@ -11,11 +11,11 @@ interface IShowProp {
 
 
 export function ShowCard({show} : IShowProp) {
-    const [avgRating, setAvgRating] = useState(show.average_rating);
-    show.average_rating = avgRating;
+    const [avgRating, setAvgRating] = useState(show.show.average_rating);
+    show.show.average_rating = avgRating;
     return (
         <Container style={{width: "920px", maxWidth:"100%"}}>
-          <ShowDetails show={show} />
+          <ShowDetails show={show.show} />
           <ShowReviewSection updateRating={setAvgRating}/>
         </Container>
     );
