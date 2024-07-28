@@ -35,7 +35,7 @@ export function RegisterForm() {
         <chakra.form 
             display={"flex"} 
             flexDirection={"column"} 
-            gap={3} 
+            gap={10} 
             alignItems={"center"} 
             color={"white"}
             onSubmit={handleSubmit(onRegister)}
@@ -51,7 +51,7 @@ export function RegisterForm() {
             <FormControl isRequired={true}>
                 <Input {...register('password_confirmation')} required type="password" placeholder="Confirm password"></Input>
             </FormControl>
-            <Button type="submit">Sign up</Button>
+            <Button type="submit">SIGN UP</Button>
             <Text fontSize={"small"}>
                 Already have an account? <Link href="../login" fontWeight={"bold"}>Log in</Link>
             </Text>

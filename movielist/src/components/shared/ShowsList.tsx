@@ -11,13 +11,13 @@ export interface IShowsListProps {
 
 export function ShowsList({shows} : IShowsListProps) {
     return (
-        <Flex width={"720px"} flexWrap={"wrap"} gap={"30px"}>
+        <Flex flexGrow={1} flexWrap={"wrap"} gap={"30px"} marginTop={6}>
             {shows.map((show) => {
                 return (
                     <NextLink key={show.id} href={`/all-shows/${show.id}`}>
-                        <div style={{borderRadius: "10px", backgroundColor: "white", overflow: "hidden", width: "200px"}}>
+                        <div style={{borderRadius: "10px", backgroundColor: "white", overflow: "hidden", width: "300px"}}>
                             <Flex flexDirection={"column"}>
-                                <Image src={show.image_url} alt="Show poster" fallbackSrc='https://via.placeholder.com/150' height={"300px"} objectFit={"cover"}></Image>
+                                <Image src={show.image_url} alt="Show poster" fallbackSrc='https://via.placeholder.com/150' height={"600px"} objectFit={"cover"}></Image>
                                 <Heading size={"md"} padding={"0 5px 0 5px"}>{show.title}</Heading>
                                 <div style={{paddingLeft: "5px"}}>{show.average_rating > 0 ? show.average_rating.toFixed(1) + " / 5" : "no ratings"}</div>
                             </Flex>

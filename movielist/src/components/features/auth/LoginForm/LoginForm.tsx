@@ -20,7 +20,7 @@ export function LoginForm() {
         <chakra.form 
             display={"flex"} 
             flexDirection={"column"} 
-            gap={3} 
+            gap={10} 
             alignItems={"center"} 
             color={"white"}
             onSubmit={handleSubmit(onLogin)}
@@ -32,7 +32,7 @@ export function LoginForm() {
             <FormControl isRequired={true}>
                 <Input {...register('password')} required type="password" placeholder="Password"></Input>
             </FormControl>
-            <Button type="submit">Log in</Button>
+            <Button type="submit">LOG IN</Button>
             <Text fontSize={"small"}>
                 Don't have an account? <Link href="../register" fontWeight={"bold"}>Register</Link>
             </Text>
