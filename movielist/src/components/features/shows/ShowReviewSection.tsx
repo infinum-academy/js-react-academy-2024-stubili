@@ -5,68 +5,46 @@ import ReviewForm from "./ReviewForm";
 import ReviewList, { IReviewList } from "../reviews/ReviewList";
 import { useEffect, useState } from "react";
 import { IReviewItem } from "../reviews/ReviewItem";
-
-const mockReviews: IReviewList = {
-        reviews: []
-}
+import useSWR from "swr";
+import { useParams } from "next/navigation";
+import { fetcher } from "@/fetchers/fetcher";
+import { getReviewsList, IReviewInputsGet } from "@/fetchers/show";
+import useSWRMutation from "swr/mutation";
 
 interface IUpdateRating {
     updateRating: (avgRating: number) => void 
 }
 
 export default function ShowReviewSection({updateRating}: IUpdateRating) {
-    const [reviews, setReviewList] = useState(mockReviews);
+    const params = useParams();
+    const [reviewList, updateReviewList] = useState(Array<IReviewInputsGet>);
+    const updateReviews = async () => {
+        await getReviewsList(params.id as string).then(
+            (data) => {
+                updateReviewList(data.reviews);
+                let sum = 0;
+                data.reviews.forEach((review) => {
+                    sum += review.rating;
+                })
+                sum /= data.reviews.length;
+                updateRating(sum);
+            }
+        )
+    }
+    const {trigger} = useSWRMutation(`/reviews/${params.id}`,updateReviews);
 
-     useEffect(() => {
-        const loadedList = loadFromLocalStorage();
-        setReviewList(loadedList);
-      }, []); 
-    
-      const saveToLocalStorage = (reviewList: IReviewList) => {
-        localStorage.setItem('reviewlist', JSON.stringify(reviewList));
-      };
-    
-      const loadFromLocalStorage = () => {
-        const toListsString = localStorage.getItem('reviewlist');
-        if (!toListsString){
-            return mockReviews;
-        }
-        return JSON.parse(toListsString);
-      };
-
-    const onAddReview = (review: IReviewItem) => {
-        const newReviewList = {
-            reviews: [...reviews.reviews, review]
-        }
-        setReviewList(newReviewList);
-        calculateAvgRating(review.score);
-        saveToLocalStorage({
-            reviews: [...reviews.reviews, review]
-        });
+    const updateReviewsTrigger = async () => {
+        await trigger();
     }
 
-    const onDeleteReview = (reviewToRemove: IReviewItem) => {
-        const newList = {
-            reviews: reviews.reviews.filter((review) => review !== reviewToRemove),
-          };
-          setReviewList(newList);
-          calculateAvgRating(-reviewToRemove.score);
-          saveToLocalStorage(newList);
-    }
-
-    const calculateAvgRating = (score: number) => {
-        let sum = score;
-        reviews.reviews.forEach((review) => {
-            sum += review.score;
-        })
-        sum /= score > 0 ? reviews.reviews.length + 1 : reviews.reviews.length - 1;
-        updateRating(sum);
-    }
+    useEffect(() => {
+        updateReviewsTrigger();
+    },[]);
 
     return (
         <Flex flexDirection={"column"}>
-            <ReviewForm onAdd={onAddReview}/>
-            <ReviewList reviewList={reviews} onDelete={onDeleteReview}></ReviewList>
+            <ReviewForm onAdd={updateReviewsTrigger}/>
+            <ReviewList reviewList={reviewList} onDelete={updateReviewsTrigger}></ReviewList>
         </Flex>
     )
 }

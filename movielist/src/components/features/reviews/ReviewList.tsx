@@ -1,23 +1,24 @@
 import { Flex } from "@chakra-ui/react";
 import ReviewItem, { IReviewItem } from "./ReviewItem";
+import { IReviewInputsGet } from "@/fetchers/show";
 
 export interface IReviewListProps {
-    reviewList: IReviewList,
-    onDelete: (reviewToRemove: IReviewItem) => void
+    reviewList: Array<IReviewInputsGet>,
+    onDelete: () => void;
 }
 
 export interface IReviewList {
-    reviews: Array<IReviewItem>
+    reviews: Array<IReviewInputsGet>
 }
 
 export interface IRemoveItem {
-    onDelete: (reviewToRemove: IReviewItem) => void
+    onDelete: (reviewToRemove: IReviewInputsGet) => void
 }
 
 export default function ReviewList({reviewList, onDelete}: IReviewListProps) {
     return (
         <Flex flexDirection={"column"} gap={2}>
-            {reviewList.reviews.map((review, index) => {
+            {reviewList.map((review, index) => {
                 return (
                     <ReviewItem key={index} review={review} onDelete={onDelete}></ReviewItem>
                 )

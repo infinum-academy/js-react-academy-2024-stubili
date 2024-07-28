@@ -1,7 +1,7 @@
 'use client';
 
 import ShowDetails from "@/components/features/shows/ShowDetails";
-import styles from "./page.module.css";
+import styles from "../../page.module.css";
 import { title } from "process";
 import { color } from "framer-motion";
 import ShowReviewSection from "@/components/features/shows/ShowReviewSection";
@@ -10,12 +10,11 @@ import { useState } from "react";
 import { ShowCard } from "@/components/shared/ShowCard";
 import { ShowsList } from "@/components/shared/ShowsList";
 import { SideBarNavigation } from "@/components/shared/SideBarNavigation";
-import { getFilterShowsList, getShow, getShowsList } from "@/fetchers/show";
+import { getFilterShowsList, getShowsList } from "@/fetchers/show";
 import useSWR from "swr";
-import { AuthRedirect } from "@/components/shared/AuthRedirect/AuthRedirect";
 
-export default function Home() {
-  const { data, error, isLoading } = useSWR('/shows', getShowsList);
+export default function TopRatedShows() {
+  const { data, error, isLoading } = useSWR('/top-rated', getFilterShowsList);
 
 	const shows = data?.shows || [];
 
@@ -23,18 +22,15 @@ export default function Home() {
 		return <div>Loading....</div>;
 	}
 
-	/* if (error) {
+	if (error) {
 		return <div>Ups...something went wrong</div>;
-	} */
+	}
   return (
-    <>
-    <AuthRedirect to="/login" condition={'loggedOut'}/>
     <main className={styles.main}>
       <Flex>
-        <SideBarNavigation />
+        <SideBarNavigation></SideBarNavigation>
         <ShowsList shows={shows}/>
       </Flex>
     </main>
-    </>
   );
 }
