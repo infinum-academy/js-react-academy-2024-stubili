@@ -27,7 +27,7 @@ export default function TopRatedShows() {
 	}
   return (
     <main className={styles.main}>
-      <Flex>
+      <Flex width={"100%"}>
         <SideBarNavigation></SideBarNavigation>
         <ShowsList shows={shows}/>
       </Flex>

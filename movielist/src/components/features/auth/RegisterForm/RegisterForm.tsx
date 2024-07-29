@@ -1,10 +1,13 @@
 'use client';
 
 import { mutator } from "@/fetchers/mutators";
-import { Button, chakra, Flex, FormControl, Heading, Input, Link, Text } from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
+import { Button, chakra, Flex, FormControl, Heading, IconButton, Input, Link, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
+import { PasswordInput } from "../components/PasswordInput";
 
 export interface IRegisterFormInputs {
     email: string,
@@ -14,6 +17,8 @@ export interface IRegisterFormInputs {
 
 export function RegisterForm() {
     const router = useRouter();
+    const [inputStyle1, changeInputStyle1] = useState("password");
+    const [inputStyle2, changeInputStyle2] = useState("password");
     const {register, handleSubmit} = useForm<IRegisterFormInputs>();
     const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users", mutator, {
         onSuccess(data, key, config) {
@@ -45,11 +50,11 @@ export function RegisterForm() {
                 <Input {...register('email')} required type="email" placeholder="Email"></Input>
             </FormControl>
             <FormControl isRequired={true}>
-                <Input {...register('password')} required type="password" placeholder="Password"></Input>
+                <PasswordInput {...register('password')} />
                 <Text fontSize={"x-small"} marginTop={1} marginLeft={2}>At least 8 characters</Text>
             </FormControl>
             <FormControl isRequired={true}>
-                <Input {...register('password_confirmation')} required type="password" placeholder="Confirm password"></Input>
+                <PasswordInput {...register('password_confirmation')}/>
             </FormControl>
             <Button type="submit">SIGN UP</Button>
             <Text fontSize={"small"}>

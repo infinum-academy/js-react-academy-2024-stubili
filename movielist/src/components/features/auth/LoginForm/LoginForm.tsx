@@ -1,19 +1,24 @@
 'use client';
 
 import { mutator } from "@/fetchers/mutators";
-import { Button, chakra, Flex, FormControl, Heading, Input, Link, Text } from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
+import { Button, chakra, Flex, FormControl, Heading, IconButton, Input, Link, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
+import { PasswordInput } from "../components/PasswordInput";
 
 export interface ILoginFormInputs {
     email: string,
-    password: string,
+    password: any,
 }
 
 export function LoginForm() {
     const {register, handleSubmit} = useForm<ILoginFormInputs>();
-    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users/sign_in", mutator)
+    const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users/sign_in", mutator);
+    const [inputStyle, changeInputStyle] = useState("password");
     const onLogin = async (data: ILoginFormInputs) => {
+        console.log(data);
         await trigger(data);
     }
     return (
@@ -30,7 +35,7 @@ export function LoginForm() {
                 <Input {...register('email')} required type="email" placeholder="Email"></Input>
             </FormControl>
             <FormControl isRequired={true}>
-                <Input {...register('password')} required type="password" placeholder="Password"></Input>
+                <PasswordInput {...register('password')} />
             </FormControl>
             <Button type="submit">LOG IN</Button>
             <Text fontSize={"small"}>
