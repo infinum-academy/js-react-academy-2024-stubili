@@ -14,7 +14,7 @@ export function ShowCard({show} : IShowProp) {
     const [avgRating, setAvgRating] = useState(show.show.average_rating);
     show.show.average_rating = avgRating;
     return (
-        <Container flexGrow={1} variant="review">
+        <Container maxWidth={"none"} flexGrow={1} variant="review">
           <ShowDetails show={show.show} />
           <ShowReviewSection updateRating={setAvgRating}/>
         </Container>
