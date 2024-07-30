@@ -30,7 +30,7 @@ export default function Home() {
     <>
     <AuthRedirect to="/login" condition={'loggedOut'}/>
     <main className={styles.main}>
-      <Flex width={"100%"}>
+      <Flex width={"100%"} p={["0 10px 10px 10px",0]} direction={["column","row"]}>
         <SideBarNavigation />
         <ShowsList shows={shows}/>
       </Flex>
