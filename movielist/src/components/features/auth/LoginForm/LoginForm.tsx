@@ -28,7 +28,8 @@ export function LoginForm() {
             gap={10} 
             alignItems={"center"} 
             color={"white"}
-            onSubmit={handleSubmit(onLogin)}
+            onSubmit={handleSubmit(onLogin)
+            }
         >
             <Heading color={"white"}>TV show app</Heading>
             <FormControl isRequired={true}>
