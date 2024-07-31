@@ -3,7 +3,7 @@ import { Container } from "@chakra-ui/react";
 
 export default function Register() {
     return (
-        <Container padding={4} backgroundColor={"#460090"} width={"300px"} borderRadius={10} marginTop={"100px"}>
+        <Container marginTop={"100px"} bg={["#1B004C","#371687"]}>
             <RegisterForm />
         </Container>
     )

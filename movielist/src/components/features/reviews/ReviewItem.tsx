@@ -35,7 +35,7 @@ export default function ReviewItem({review, onDelete}: IReview) {
     }
     if (review.user.email == authHeaders.uid){
         return (
-            <Flex flexDirection={"column"} backgroundColor={"#4b009b"} color={"white"} marginTop={3} padding={2} borderRadius={10} gap={2}>
+            <Flex flexDirection={"column"} backgroundColor={"#371687"} color={"white"} marginTop={3} padding={4} borderRadius={10} gap={2}>
                 <div>{review.user.email}</div>
                 <div>{review.comment}</div>
                 <div>{review.rating} / 5</div>
@@ -46,7 +46,7 @@ export default function ReviewItem({review, onDelete}: IReview) {
         )
     } else {
         return (
-        <Flex flexDirection={"column"} backgroundColor={"#4b009b"} color={"white"} marginTop={3} padding={2} borderRadius={10} gap={2}>
+        <Flex flexDirection={"column"} backgroundColor={"#371687"} color={"white"} marginTop={3} padding={4} borderRadius={20} gap={2}>
                 <div>{review.user.email}</div>
                 <div>{review.comment}</div>
                 <div>{review.rating} / 5</div>

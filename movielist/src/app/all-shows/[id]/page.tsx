@@ -21,8 +21,8 @@ export default function ShowInfoPage() {
 	}
 
     return (
-        <main className={styles.main}>
-            <Flex>
+        <main className={styles.main} style={{width: "100%"}}>
+            <Flex width={"100%"} direction={["column","row"]}>
                 <SideBarNavigation></SideBarNavigation>
                 <ShowCard show={data}></ShowCard>
             </Flex>
