@@ -16,7 +16,6 @@ export interface ILoginFormInputs {
 export function LoginForm() {
     const {register, handleSubmit} = useForm<ILoginFormInputs>();
     const {trigger} = useSWRMutation("https://tv-shows.infinum.academy/users/sign_in", mutator);
-    const [inputStyle, changeInputStyle] = useState("password");
     const onLogin = async (data: ILoginFormInputs) => {
         console.log(data);
         await trigger(data);

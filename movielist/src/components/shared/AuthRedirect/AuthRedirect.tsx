@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { fetcher } from '../../../fetchers/fetcher';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { Text } from '@chakra-ui/react';
 
 interface IAuthRedirectProps {
   to: string;

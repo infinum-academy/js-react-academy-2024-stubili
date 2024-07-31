@@ -25,6 +25,8 @@ interface IPickerContext {
     setFinalRound: (newFinal: Array<IShow>) => void;
     finale: Array<IShow>;
     setFinale: (newFinale: Array<IShow>) => void;
+    finalShowChosen: number;
+    pickFinalShow: (chosen: number) => void;
 }
 
 export const PickerContext = createContext<IPickerContext>({} as IPickerContext);
@@ -37,6 +39,7 @@ export const ShowPicker = () => {
     const [selectedShows, setSelectedShows] = useState([] as IShow[]);
     const [finalRoundShows, setFinalRound] = useState([] as IShow[]);
     const [finale, setFinale] = useState([] as IShow[]);
+    const [finalShowChosen, pickFinalShow] = useState(0);
     const {data: showsList} = useSWR('/shows', getShowsList);
 
     const shows = showsList?.shows;
@@ -66,7 +69,9 @@ export const ShowPicker = () => {
                     finalRoundShows,
                     setFinalRound,
                     finale,
-                    setFinale
+                    setFinale,
+                    finalShowChosen,
+                    pickFinalShow
                 }}
             >
                 <Text onClick={onOpen} variant="mainPage" _hover={{cursor: "pointer", bg: "#371687"}}>Show picker</Text>
