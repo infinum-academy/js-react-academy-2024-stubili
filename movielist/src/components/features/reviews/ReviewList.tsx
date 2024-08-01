@@ -20,7 +20,7 @@ export default function ReviewList({reviewList, onDelete}: IReviewListProps) {
         <Flex flexDirection={"column"} gap={2}>
             {reviewList.map((review, index) => {
                 return (
-                    <ReviewItem key={index} review={review} onDelete={onDelete}></ReviewItem>
+                    <ReviewItem key={index} review={review} onDelete={onDelete} onMyProfile={false}></ReviewItem>
                 )
             })}
         </Flex>

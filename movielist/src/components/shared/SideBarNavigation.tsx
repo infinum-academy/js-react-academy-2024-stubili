@@ -24,7 +24,9 @@ export function SideBarNavigation() {
                             <NextLink href={'/all-shows/top-rated'}>
                                 <Text variant="mainPage">Top rated</Text>
                             </NextLink>
-                            <Text variant="mainPage">My profile</Text>
+                            <NextLink href={'/my-profile'}>
+                                <Text variant="mainPage">My profile</Text>    
+                            </NextLink>
                             <ShowPicker />
                         </Flex>
                         <NextLink href={'/login'}>
@@ -50,7 +52,9 @@ export function SideBarNavigation() {
                                     <NextLink href={'/all-shows/top-rated'}>
                                         <Text variant="mainPage">Top rated</Text>
                                     </NextLink>
-                                    <Text variant="mainPage">My profile</Text>
+                                    <NextLink href={'/my-profile'}>
+                                        <Text variant="mainPage">My profile</Text>    
+                                    </NextLink>
                                     <ShowPicker />
                                 </Flex>
                             </DrawerBody>

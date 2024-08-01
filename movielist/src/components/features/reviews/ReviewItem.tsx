@@ -8,7 +8,8 @@ import useSWRMutation from "swr/mutation"
 
 interface IReview {
     review: IReviewInputsGet,
-    onDelete: () => void
+    onDelete: () => void,
+    onMyProfile: boolean
 }
 
 export interface IReviewItem {
@@ -17,7 +18,7 @@ export interface IReviewItem {
     user: string
 }
 
-export default function ReviewItem({review, onDelete}: IReview) {
+export default function ReviewItem({review, onDelete, onMyProfile}: IReview) {
     const authHeadersString = sessionStorage.getItem('auth-headers')
 	const authHeaders = JSON.parse(authHeadersString ?? JSON.stringify({
 		client: '',
@@ -36,7 +37,7 @@ export default function ReviewItem({review, onDelete}: IReview) {
     if (review.user.email == authHeaders.uid){
         return (
             <Flex flexDirection={"column"} backgroundColor={"#371687"} color={"white"} marginTop={3} padding={4} borderRadius={10} gap={2}>
-                <div>{review.user.email}</div>
+                <div>{onMyProfile ? "" : review.user.email}</div>
                 <div>{review.comment}</div>
                 <div>{review.rating} / 5</div>
                 <chakra.form onSubmit={handleSubmit(onClickHandler)}>

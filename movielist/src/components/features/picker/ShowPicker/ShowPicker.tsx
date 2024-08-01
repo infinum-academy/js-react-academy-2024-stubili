@@ -44,12 +44,22 @@ export const ShowPicker = () => {
 
     const shows = showsList?.shows;
 
+    const selectedShowPlaceHolder = {
+        show: {
+            id: 9999,
+            title: 'placeholder',
+            description: 'placeholder',
+            average_rating: 3,
+            no_of_reviews: 0,
+            image_url: 'placeholder'
+        }
+    }
+    const  [selectedShow, setSelectedShow] = useState(selectedShowPlaceHolder);
     
     if (!shows) {
         return null;
     }
 
-    const  [selectedShow, setSelectedShow] = useState(shows[0]);
 
     return (
         <>
